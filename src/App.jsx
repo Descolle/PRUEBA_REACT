@@ -22,17 +22,17 @@ function App() {
         <CartProvider>
           <NavBar />
           <Routes>
-            <Route path="/HITO7_REACT/" element={<Home />} />
-            <Route path="/HITO7_REACT/pizza" element={<CardPizza />} />
-            <Route path="/HITO7_REACT/pizza/:id" element={<Pizza01 />} />
-            <Route path="/HITO7_REACT/cart" element={<Cart />} />
-            <Route path="/HITO7_REACT/login" element={<LogIn />} />
-            <Route path="/HITO7_REACT/register" element={<SignUp />} />
+            <Route path="/PRUEBA_FINAL/" element={<Home />} />
+            <Route path="/PRUEBA_FINAL/pizza" element={<CardPizza />} />
+            <Route path="/PRUEBA_FINAL/pizza/:id" element={<Pizza01 />} />
+            <Route path="/PRUEBA_FINAL/cart" element={<Cart />} />
+            <Route path="/PRUEBA_FINAL/login" element={<LogIn />} />
+            <Route path="/PRUEBA_FINAL/register" element={<SignUp />} />
             <Route
-              path="/HITO7_REACT/profile"
+              path="/PRUEBA_FINAL/profile"
               element={token ? <Profile /> : <Navigate to="/login" />}
             />
-            <Route path="/HITO7_REACT/*" element={<NotFound />} />
+            <Route path="/PRUEBA_FINAL/*" element={<NotFound />} />
           </Routes>
         </CartProvider>
       </MyProvider>

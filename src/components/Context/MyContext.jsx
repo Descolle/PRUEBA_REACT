@@ -30,7 +30,10 @@ const MyProvider = ({ children }) => {
     try {
       const response = await fetch("http://localhost:5000/api/auth/register", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer token_jwt`,
+        },
         body: JSON.stringify(userData),
       });
 
@@ -42,14 +45,11 @@ const MyProvider = ({ children }) => {
       const data = await response.json();
       console.log("Registro exitoso:", data);
 
-      // Store token and update context
       localStorage.setItem("token", data.token);
-      setToken(data.token); // Update token in context
+      setToken(data.token);
+      setUser("");
+      setPassword("");
 
-      setUser(""); // Reset user input
-      setPassword(""); // Reset password input
-
-      // Redirect after successful registration
       navigate("HITO7_REACT/login");
     } catch (error) {
       console.error("Error en el registro:", error.message);

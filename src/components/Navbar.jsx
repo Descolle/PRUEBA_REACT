@@ -12,7 +12,7 @@ import { CartContext } from "./Context/CartContext";
 import { MyContext } from "./Context/MyContext";
 
 function NavBar() {
-  const { token } = useContext(MyContext);
+  const { token, setToken } = useContext(MyContext);
   const [openFormulario, register, closeRegister] = useSign(false);
   const [abierto, OpenLog, closeLog] = useLogIn();
   const { total } = useContext(CartContext);
@@ -21,7 +21,8 @@ function NavBar() {
   const handleLogOut = () => {
     console.log("Logging out...");
     setToken("");
-    navigate("/HITO7_REACT/");
+    localStorage.removeItem("token");
+    navigate("/PRUEBA_FINAL/");
   };
 
   useEffect(() => {
@@ -31,47 +32,55 @@ function NavBar() {
       console.log("User logged out. Token cleared.");
     }
   }, [token]);
+
   return (
     <Navbar bg="dark" data-bs-theme="dark" className="d-flex">
       <Container>
         <Navbar.Brand>Pizzeria Mamma Mia!</Navbar.Brand>
         <Nav className="me-auto">
           <Button variant="outline-light" className="text-white">
-            <Link to="/HITO7_REACT/" className="zelda">
+            <Link to="/PRUEBA_FINAL/" className="zelda">
               🍕Home
             </Link>
           </Button>
+
           <Button variant="outline-light" className="text-white">
             <Link
-              to={token ? "/HITO7_REACT/profile" : "/HITO7_REACT/register"}
+              to={token ? "/PRUEBA_FINAL/profile" : "/PRUEBA_FINAL/register"}
               className="zelda"
             >
               <img src={token ? lockopen : lock} alt="lock status" />
               {token ? "Profile" : "Register"}
             </Link>
           </Button>
-          <Button
-            variant="outline-light"
-            className="text-white"
-            onClick={token ? handleLogOut : null}
-          >
-            <Link to={token ? "#" : "/HITO7_REACT/login"} className="zelda">
-              <img src={token ? lockopen : lock} alt="lock status" />
-              {token ? "LogOut" : "Login"}
-            </Link>
-          </Button>
+
+          {token ? (
+            <Button
+              variant="outline-light"
+              className="text-white"
+              onClick={handleLogOut}
+            >
+              <img src={lockopen} alt="lock status" />
+              LogOut
+            </Button>
+          ) : (
+            <Button variant="outline-light" className="text-white">
+              <Link to="/PRUEBA_FINAL/login" className="zelda">
+                <img src={lock} alt="lock status" />
+                Login
+              </Link>
+            </Button>
+          )}
         </Nav>
 
         <Nav className="ms-auto">
-          <Link to="/HITO7_REACT/cart" className="zelda valor">
+          <Link to="/PRUEBA_FINAL/cart" className="zelda valor">
             <Button variant="outline-light" className="text-white">
               🛒Total: ${total.toLocaleString()}
             </Button>
           </Link>
         </Nav>
       </Container>
-      {/* <SignUp openFormulario={openFormulario} closeRegister={closeRegister} />
-      <LogIn abierto={abierto} CloseLog={closeLog}/> */}
     </Navbar>
   );
 }

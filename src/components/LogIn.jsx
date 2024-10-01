@@ -7,17 +7,21 @@ import { useNavigate } from "react-router-dom";
 const LogIn = ({ abierto, CloseLog }) => {
   const [usuario, setUsuario] = useState("");
   const [contraseña, setContraseña] = useState("");
-  const { handleSubmitLogin, loading, error, setUser } = useContext(MyContext);
+  const { handleSubmitLogin, loading, error, setUser, setPassword, token } =
+    useContext(MyContext);
   const navigate = useNavigate();
 
+  // This function will be triggered by the form submit event
   const inicio = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // This will only work if `e` is passed correctly
 
     try {
-      await handleSubmitLogin(usuario, contraseña);
-
+      // Set user and password in context
       setUser(usuario);
-      console.log("Token:", token);
+      setPassword(contraseña);
+
+      // Call handleSubmitLogin from context
+      await handleSubmitLogin();
 
       Swal.fire({
         title: "Bienvenido",
@@ -29,9 +33,7 @@ const LogIn = ({ abierto, CloseLog }) => {
         imageAlt: "Custom image",
       });
 
-      navigate("HITO7_REACT/profile");
-      setUsuario("");
-      setContraseña("");
+      navigate("/profile");
     } catch (error) {
       Swal.fire({
         title: "Error",
@@ -44,6 +46,8 @@ const LogIn = ({ abierto, CloseLog }) => {
   return (
     <div className={`wrapper modal ${abierto ? "is-open" : ""}`}>
       <form onSubmit={inicio}>
+        {" "}
+        {/* Ensure `inicio` is passed here */}
         <h1>Log In</h1>
         <button type="button" className="modal-close" onClick={CloseLog}>
           &times;
