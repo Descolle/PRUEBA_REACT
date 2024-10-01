@@ -31,8 +31,7 @@ const MyProvider = ({ children }) => {
       const response = await fetch("http://localhost:5000/api/auth/register", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer token_jwt`,
+          "Content-Type": "application/json"
         },
         body: JSON.stringify(userData),
       });
@@ -50,7 +49,7 @@ const MyProvider = ({ children }) => {
       setUser("");
       setPassword("");
 
-      navigate("HITO7_REACT/login");
+      navigate("PRUEBA_REACT/login");
     } catch (error) {
       console.error("Error en el registro:", error.message);
       setError(error.message);
@@ -81,7 +80,7 @@ const MyProvider = ({ children }) => {
 
       alert("Authentication successful!");
       setToken(data.token);
-      navigate("/profile");
+      navigate("PRUEBA_REACT/profile");
     } catch (error) {
       setError(error.message);
     } finally {

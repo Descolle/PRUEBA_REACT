@@ -11,12 +11,10 @@ const LogIn = ({ abierto, CloseLog }) => {
     useContext(MyContext);
   const navigate = useNavigate();
 
-  // This function will be triggered by the form submit event
   const inicio = async (e) => {
-    e.preventDefault(); // This will only work if `e` is passed correctly
+    e.preventDefault();
 
     try {
-      // Set user and password in context
       setUser(usuario);
       setPassword(contraseña);
 
@@ -58,7 +56,7 @@ const LogIn = ({ abierto, CloseLog }) => {
             placeholder="Correo"
             required
             value={usuario}
-            onChange={(event) => setUsuario(event.target.value)}
+            onChange={(e) => setUsuario(e.target.value)}
           />
         </div>
         <div className="input-box">
@@ -67,7 +65,7 @@ const LogIn = ({ abierto, CloseLog }) => {
             placeholder="Contraseña"
             required
             value={contraseña}
-            onChange={(event) => setContraseña(event.target.value)}
+            onChange={(e) => setContraseña(e.target.value)}
           />
         </div>
         <button type="submit" className="registro" disabled={loading}>

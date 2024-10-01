@@ -22,7 +22,7 @@ function NavBar() {
     console.log("Logging out...");
     setToken("");
     localStorage.removeItem("token");
-    navigate("/PRUEBA_FINAL/");
+    navigate("PRUEBA_REACT/");
   };
 
   useEffect(() => {
@@ -39,14 +39,14 @@ function NavBar() {
         <Navbar.Brand>Pizzeria Mamma Mia!</Navbar.Brand>
         <Nav className="me-auto">
           <Button variant="outline-light" className="text-white">
-            <Link to="/PRUEBA_FINAL/" className="zelda">
+            <Link to="PRUEBA_REACT/" className="zelda">
               🍕Home
             </Link>
           </Button>
 
           <Button variant="outline-light" className="text-white">
             <Link
-              to={token ? "/PRUEBA_FINAL/profile" : "/PRUEBA_FINAL/register"}
+              to={token ? "PRUEBA_REACT/profile" : "PRUEBA_REACT/register"}
               className="zelda"
             >
               <img src={token ? lockopen : lock} alt="lock status" />
@@ -65,7 +65,7 @@ function NavBar() {
             </Button>
           ) : (
             <Button variant="outline-light" className="text-white">
-              <Link to="/PRUEBA_FINAL/login" className="zelda">
+              <Link to="PRUEBA_REACT/login" className="zelda">
                 <img src={lock} alt="lock status" />
                 Login
               </Link>
@@ -74,7 +74,7 @@ function NavBar() {
         </Nav>
 
         <Nav className="ms-auto">
-          <Link to="/PRUEBA_FINAL/cart" className="zelda valor">
+          <Link to="PRUEBA_REACT/cart" className="zelda valor">
             <Button variant="outline-light" className="text-white">
               🛒Total: ${total.toLocaleString()}
             </Button>
