@@ -2,18 +2,23 @@ import { useContext, useState } from "react";
 import "./SignUp.css";
 import Swal from "sweetalert2";
 import { MyContext } from "./Context/MyContext";
+import { useNavigate } from "react-router-dom";
 
 const LogIn = ({ abierto, CloseLog }) => {
   const [usuario, setUsuario] = useState("");
   const [contraseña, setContraseña] = useState("");
-  const { user, password, token, setToken, handleSubmit } = useContext(MyContext);
+  const { handleSubmitLogin, loading, error, setUser } = useContext(MyContext);
+  const navigate = useNavigate();
 
-  const inicio = async  (event) => {
-    event.preventDefault(); // Prevent default form submission behavior
+  const inicio = async (e) => {
+    e.preventDefault();
 
-    await handleSubmit(event);
+    try {
+      await handleSubmitLogin(usuario, contraseña);
 
-    if (contraseña === password && usuario === user) {
+      setUser(usuario);
+      console.log("Token:", token);
+
       Swal.fire({
         title: "Bienvenido",
         text: "Disfruta de nuestras pizzas hechas con amor",
@@ -23,11 +28,14 @@ const LogIn = ({ abierto, CloseLog }) => {
         imageHeight: 200,
         imageAlt: "Custom image",
       });
-      setToken(true);
-    } else {
+
+      navigate("HITO7_REACT/profile");
+      setUsuario("");
+      setContraseña("");
+    } catch (error) {
       Swal.fire({
         title: "Error",
-        text: "Email y/o Contraseña no corresponde",
+        text: error.message || "Email y/o Contraseña no corresponde",
         icon: "error",
       });
     }
@@ -45,6 +53,7 @@ const LogIn = ({ abierto, CloseLog }) => {
             type="email"
             placeholder="Correo"
             required
+            value={usuario}
             onChange={(event) => setUsuario(event.target.value)}
           />
         </div>
@@ -53,17 +62,24 @@ const LogIn = ({ abierto, CloseLog }) => {
             type="password"
             placeholder="Contraseña"
             required
+            value={contraseña}
             onChange={(event) => setContraseña(event.target.value)}
           />
         </div>
-        <button type="submit" className="registro">
-          Iniciar Sesion
+        <button type="submit" className="registro" disabled={loading}>
+          {loading ? "Iniciando..." : "Iniciar Sesion"}
         </button>
         <div className="account-exist">
           <a href="#">¿Olvidaste tu Contraseña?</a>
         </div>
+        {error && (
+          <div className="error-message" aria-live="assertive">
+            {error}
+          </div>
+        )}{" "}
       </form>
     </div>
   );
 };
+
 export default LogIn;

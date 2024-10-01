@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { createContext } from "react";
+import { useState, useEffect, createContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const MyContext = createContext();
@@ -12,19 +11,20 @@ const MyProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    localStorage.setItem("token", token);
+  }, [token]);
+
   const handleSubmitRegister = async () => {
     setError("");
     setLoading(true);
 
-    // Verificar que email y password no estén vacíos
-    if (!email || !password) {
+    if (!user || !password) {
       setError("El email y la contraseña son obligatorios.");
       setLoading(false);
       return;
     }
-
-    // Datos del usuario a enviar
-    const userData = { email, password };
+    const userData = { email: user, password };
     console.log("Datos enviados:", userData);
 
     try {
@@ -34,45 +34,59 @@ const MyProvider = ({ children }) => {
         body: JSON.stringify(userData),
       });
 
-      // Si la respuesta no es exitosa, lanzar un error
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || "Error en el registro");
       }
 
-      // Procesar la respuesta de la API
       const data = await response.json();
       console.log("Registro exitoso:", data);
 
-      setEmail("");
-      setPassword("");
+      // Store token and update context
+      localStorage.setItem("token", data.token);
+      setToken(data.token); // Update token in context
 
-      // Opcional: Redirigir a otra página tras el registro exitoso, por ejemplo, al perfil o login
-      navigate("/login");
+      setUser(""); // Reset user input
+      setPassword(""); // Reset password input
+
+      // Redirect after successful registration
+      navigate("HITO7_REACT/login");
     } catch (error) {
       console.error("Error en el registro:", error.message);
-      setError(error.message); // Mostrar mensaje de error en la UI
+      setError(error.message);
     } finally {
-      // Finaliza el estado de carga
       setLoading(false);
     }
   };
 
   const handleSubmitLogin = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:5000/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
-    const data = await response.json();
-    alert(data?.error || "Authentication successful!");
-    localStorage.setItem("token", data.token);
+    setError("");
+    setLoading(true);
+
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: user, password }),
+      });
+
+      const data = await response.json();
+
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
+      alert("Authentication successful!");
+      setToken(data.token);
+      navigate("/profile");
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -84,9 +98,9 @@ const MyProvider = ({ children }) => {
         setUser,
         password,
         setPassword,
-        handleSubmitLogin,
         error,
         loading,
+        handleSubmitLogin,
         handleSubmitRegister,
       }}
     >

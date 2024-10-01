@@ -1,13 +1,14 @@
 import { useContext, useState } from "react";
 import "./SignUp.css";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MyContext } from "./Context/MyContext";
 
 const SignUp = ({ children, openFormulario, closeRegister }) => {
   const { user, setUser, password, setPassword, handleSubmitRegister } =
     useContext(MyContext);
   const [confirmpassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate();
 
   const validacion = async (event) => {
     event.preventDefault();
@@ -39,7 +40,7 @@ const SignUp = ({ children, openFormulario, closeRegister }) => {
         text: "Tu cuenta ha sido creada",
         icon: "success",
       });
-      navigate("/profile");
+      navigate("HITO7_REACT/profile");
     } catch (error) {
       Swal.fire({
         icon: "error",

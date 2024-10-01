@@ -4,27 +4,33 @@ import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import lockopen from "../assets/img/lockOpen.png";
 import lock from "../assets/img/lock.png";
-import SignUp from "./SignUp";
-import LogIn from "./LogIn";
 import { useSign } from "./hooks/useSign";
 import { useLogIn } from "./hooks/useLogIn";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { CartContext } from "./Context/CartContext";
 import { MyContext } from "./Context/MyContext";
 
 function NavBar() {
-  const { token, setToken } = useContext(MyContext);
+  const { token } = useContext(MyContext);
   const [openFormulario, register, closeRegister] = useSign(false);
   const [abierto, OpenLog, closeLog] = useLogIn();
   const { total } = useContext(CartContext);
   const navigate = useNavigate();
 
   const handleLogOut = () => {
-    setToken(false);
+    console.log("Logging out...");
+    setToken("");
     navigate("/HITO7_REACT/");
   };
 
+  useEffect(() => {
+    if (token) {
+      console.log("User logged in. Token:", token);
+    } else {
+      console.log("User logged out. Token cleared.");
+    }
+  }, [token]);
   return (
     <Navbar bg="dark" data-bs-theme="dark" className="d-flex">
       <Container>
@@ -64,7 +70,6 @@ function NavBar() {
           </Link>
         </Nav>
       </Container>
-
       {/* <SignUp openFormulario={openFormulario} closeRegister={closeRegister} />
       <LogIn abierto={abierto} CloseLog={closeLog}/> */}
     </Navbar>
