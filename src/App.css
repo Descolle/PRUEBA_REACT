@@ -1,0 +1,69 @@
+.NavBar {
+  width: 100%;
+  display: grid;
+}
+
+.FullNavbar {
+  border: 3px solid goldenrod;
+  margin-bottom: 50px;
+
+}
+.items {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.pizzacontainer {
+  display:grid;
+  justify-content: space-between;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+
+}
+.pizza {
+  margin-top: 20px;
+}
+.pizza_name {
+  text-align: center;
+  text-decoration:underline;
+}
+.ingredientes {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.ingrediente {
+  color: gray;
+  font-size: 15px;
+}
+.PizzaFondo {
+  display: flex;
+  flex-direction: column;
+  background-image: url(https://png.pngtree.com/background/20210711/original/pngtree-black-minimalist-blackboard-tea-restaurant-pizza-e-commerce-banner-picture-image_1093777.jpg);
+  height: 50vh;
+  color: white;
+  text-align: center;
+  justify-content: center;
+}
+
+.zelda {
+  text-decoration: none;
+  color: white;
+}
+.valor {
+  text-decoration: none;
+  color: white;
+}
+.footer{
+  display: grid;
+  width: 100%;
+  background-color: black;
+  color: white;
+  font-size: 15px;
+  text-align: center;
+}
+
+.text-cart {
+  justify-content: start;
+  font-size: 20px;
+  margin-bottom: 5px;
+}

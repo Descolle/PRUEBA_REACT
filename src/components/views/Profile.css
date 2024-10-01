@@ -1,0 +1,37 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+.profile_container {
+    display: flex;
+}
+.profile {
+    border:2px solid black;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    max-width: 40vh;
+}
+.profile_btn {
+    width: 15vh;
+    height: 5vh;
+    margin-left: 35px;
+    border-radius: 10px;
+}
+.profile p {
+    margin-left: 25px;
+}
+.profile_pic {
+    width: 200px;
+}
+
+.square {
+    display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.square_underconstruction {
+    width: 700px;
+    height: 500px;
+}
