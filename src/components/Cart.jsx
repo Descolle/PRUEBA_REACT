@@ -4,6 +4,21 @@ import Button from "react-bootstrap/Button";
 import { CartContext } from "./Context/CartContext";
 import { MyContext } from "./Context/MyContext";
 
+function payment() {
+  Swal.fire({
+    title: "Custom width, padding, color, background.",
+    width: 600,
+    padding: "3em",
+    color: "#716add",
+    background: "#fff url(/images/trees.png)",
+    backdrop: `
+      rgba(0,0,123,0.4)
+      url("/images/nyan-cat.gif")
+      left top
+      no-repeat
+    `,
+  });
+}
 function Cart() {
   const { cart, total, removePizza, clearCart } = useContext(CartContext);
   const { token } = useContext(MyContext);
@@ -36,7 +51,11 @@ function Cart() {
       <Button variant="danger" onClick={clearCart} className="clear-all">
         Vaciar Carrito
       </Button>
-      {token && <button className="btn btn-primary">Pagar</button>}
+      {token && (
+        <button onClick={payment} className="btn btn-primary">
+          Pagar
+        </button>
+      )}
     </div>
   );
 }
