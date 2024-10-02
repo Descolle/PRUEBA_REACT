@@ -29,8 +29,6 @@ const LogIn = ({ abierto, CloseLog }) => {
         imageHeight: 200,
         imageAlt: "Custom image",
       });
-
-      navigate("/PRUEBA_REACT/profile");
     } catch (error) {
       Swal.fire({
         title: "Error",

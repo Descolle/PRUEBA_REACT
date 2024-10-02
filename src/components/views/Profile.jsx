@@ -4,7 +4,7 @@ import "./Profile.css";
 import { MyContext } from "../Context/MyContext";
 
 const Profile = () => {
-  const { token, profileEmail, user, logout } = useContext(MyContext);
+  const { token, profileEmail, user, handleLogOut } = useContext(MyContext);
 
   useEffect(() => {
     if (token) {
@@ -26,7 +26,7 @@ const Profile = () => {
         <ul>Address</ul>
         <ul>Orders</ul>
         <ul>
-          <Button onClick={logout}>Cerrar sesión</Button>
+          <Button onClick={handleLogOut}>Cerrar sesión</Button>
         </ul>
       </div>
       <div className="square d-flex justify-content-center align-items-center">

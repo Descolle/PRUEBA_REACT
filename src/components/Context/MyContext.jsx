@@ -11,9 +11,10 @@ const MyProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const logout = () => {
-    logoutUser();
-    logoutCard();
+  const handleLogOut = () => {
+    setToken("");
+    localStorage.removeItem("token");
+    navigate("PRUEBA_REACT/");
   };
 
   useEffect(() => {
@@ -54,7 +55,7 @@ const MyProvider = ({ children }) => {
       setUser("");
       setPassword("");
 
-      <Navigate to="PRUEBA_REACT/login" />;
+      navigate("PRUEBA_REACT/login");
     } catch (error) {
       console.error("Error en el registro:", error.message);
       setError(error.message);
@@ -93,24 +94,28 @@ const MyProvider = ({ children }) => {
     }
   };
 
-  const profileEmail = async (email, token) => {
-    const response = await fetch("http://localhost:5000/api/auth/me", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+  const profileEmail = async (token) => {
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/me", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    if (data.error) {
-      alert(data.error);
-      setToken(false);
-      setEmail(null);
-    } else {
-      setUser(data);
+      if (data.error) {
+        alert(data.error);
+        setToken(""); // Limpiar token en caso de error
+      } else {
+        setUser(data); // Almacena los datos del usuario en el estado
+      }
+    } catch (error) {
+      console.error("Error al obtener el perfil:", error);
     }
   };
+
   return (
     <MyContext.Provider
       value={{
@@ -125,10 +130,7 @@ const MyProvider = ({ children }) => {
         handleSubmitLogin,
         handleSubmitRegister,
         profileEmail,
-        email,
-        logout,
-        logoutUser,
-        logoutCard,
+        handleLogOut,
       }}
     >
       {children}

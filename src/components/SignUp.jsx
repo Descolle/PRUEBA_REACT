@@ -40,7 +40,7 @@ const SignUp = ({ children, openFormulario, closeRegister }) => {
         text: "Tu cuenta ha sido creada",
         icon: "success",
       });
-      navigate("/PRUEBA_REACT/profile");
+      navigate("/PRUEBA_REACT/login");
     } catch (error) {
       Swal.fire({
         icon: "error",

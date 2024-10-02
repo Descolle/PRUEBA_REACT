@@ -19,7 +19,6 @@ function NavBar() {
   const navigate = useNavigate();
 
   const handleLogOut = () => {
-    console.log("Logging out...");
     setToken("");
     localStorage.removeItem("token");
     navigate("PRUEBA_REACT/");
@@ -46,7 +45,7 @@ function NavBar() {
 
           <Button variant="outline-light" className="text-white">
             <Link
-              to={token ? "PRUEBA_REACT/profile" : "PRUEBA_REACT/register"}
+              to={token ? "/PRUEBA_REACT/profile" : "/PRUEBA_REACT/register"}
               className="zelda"
             >
               <img src={token ? lockopen : lock} alt="lock status" />
