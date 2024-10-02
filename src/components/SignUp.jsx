@@ -40,7 +40,7 @@ const SignUp = ({ children, openFormulario, closeRegister }) => {
         text: "Tu cuenta ha sido creada",
         icon: "success",
       });
-      navigate("PRUEBA_REACT/profile");
+      navigate("/PRUEBA_REACT/profile");
     } catch (error) {
       Swal.fire({
         icon: "error",
@@ -89,7 +89,7 @@ const SignUp = ({ children, openFormulario, closeRegister }) => {
         </button>
         <div className="account-exist">
           <label>¿Ya tienes cuenta?</label>
-          <Link to="/PRUEBA_FINAL/login">Iniciar Sesión</Link>
+          <Link to="/PRUEBA_REACT/login">Iniciar Sesión</Link>
         </div>
       </form>
       {children}

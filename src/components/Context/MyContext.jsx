@@ -31,7 +31,7 @@ const MyProvider = ({ children }) => {
       const response = await fetch("http://localhost:5000/api/auth/register", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(userData),
       });
@@ -49,7 +49,7 @@ const MyProvider = ({ children }) => {
       setUser("");
       setPassword("");
 
-      navigate("PRUEBA_REACT/login");
+      <Navigate to="PRUEBA_REACT/login" />;
     } catch (error) {
       console.error("Error en el registro:", error.message);
       setError(error.message);
@@ -88,6 +88,24 @@ const MyProvider = ({ children }) => {
     }
   };
 
+  const profileEmail = async (email, token) => {
+    const response = await fetch("http://localhost:5000/api/auth/me", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data = await response.json();
+
+    if (data.error) {
+      alert(data.error);
+      setToken(false);
+      setEmail(null);
+    } else {
+      setUser(data);
+    }
+  };
   return (
     <MyContext.Provider
       value={{
@@ -101,6 +119,7 @@ const MyProvider = ({ children }) => {
         loading,
         handleSubmitLogin,
         handleSubmitRegister,
+        profileEmail,
       }}
     >
       {children}

@@ -7,19 +7,18 @@ import { useNavigate } from "react-router-dom";
 const LogIn = ({ abierto, CloseLog }) => {
   const [usuario, setUsuario] = useState("");
   const [contraseña, setContraseña] = useState("");
-  const { handleSubmitLogin, loading, error, setUser, setPassword, token } =
+  const { handleSubmitLogin, loading, error, setUser, setPassword } =
     useContext(MyContext);
   const navigate = useNavigate();
 
   const inicio = async (e) => {
     e.preventDefault();
 
-    try {
-      setUser(usuario);
-      setPassword(contraseña);
+    setUser(usuario);
+    setPassword(contraseña);
 
-      // Call handleSubmitLogin from context
-      await handleSubmitLogin();
+    try {
+      await handleSubmitLogin(e); // Pass the event object here
 
       Swal.fire({
         title: "Bienvenido",
@@ -31,7 +30,7 @@ const LogIn = ({ abierto, CloseLog }) => {
         imageAlt: "Custom image",
       });
 
-      navigate("/profile");
+      navigate("/PRUEBA_REACT/profile");
     } catch (error) {
       Swal.fire({
         title: "Error",
@@ -44,8 +43,6 @@ const LogIn = ({ abierto, CloseLog }) => {
   return (
     <div className={`wrapper modal ${abierto ? "is-open" : ""}`}>
       <form onSubmit={inicio}>
-        {" "}
-        {/* Ensure `inicio` is passed here */}
         <h1>Log In</h1>
         <button type="button" className="modal-close" onClick={CloseLog}>
           &times;
@@ -78,7 +75,7 @@ const LogIn = ({ abierto, CloseLog }) => {
           <div className="error-message" aria-live="assertive">
             {error}
           </div>
-        )}{" "}
+        )}
       </form>
     </div>
   );
