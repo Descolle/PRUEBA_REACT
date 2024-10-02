@@ -3,10 +3,11 @@ import CardPizza from "./CardPizza";
 import Button from "react-bootstrap/Button";
 import { CartContext } from "./Context/CartContext";
 import { MyContext } from "./Context/MyContext";
+import Swal from "sweetalert2";
 
 function payment() {
   Swal.fire({
-    title: "Custom width, padding, color, background.",
+    title: "Pagado",
     width: 600,
     padding: "3em",
     color: "#716add",
