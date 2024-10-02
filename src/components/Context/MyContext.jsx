@@ -11,6 +11,11 @@ const MyProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  const logout = () => {
+    logoutUser();
+    logoutCard();
+  };
+
   useEffect(() => {
     localStorage.setItem("token", token);
   }, [token]);
@@ -120,6 +125,10 @@ const MyProvider = ({ children }) => {
         handleSubmitLogin,
         handleSubmitRegister,
         profileEmail,
+        email,
+        logout,
+        logoutUser,
+        logoutCard,
       }}
     >
       {children}
